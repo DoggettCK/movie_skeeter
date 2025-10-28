@@ -1,7 +1,7 @@
 [project]
 name = "movie-skeeter"
 version = "0.1.0"
-description = "Add your description here"
+description = "Skeets movie reviews to BlueSky"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

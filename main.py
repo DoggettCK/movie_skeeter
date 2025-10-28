@@ -18,16 +18,15 @@ def main():
         help="Actually run, otherwise just print what would be posted.",
     )
     parsed_args = parser.parse_args()
-    print(parsed_args)
 
     client = build_bsky_client()
 
     for row in read_csv_rows("data/movies.csv"):
         body_text = build_body_text(row)
         alt_text = build_alt_text(row)
-        image, aspect_ratio = build_image_and_aspect_ratio(row)
+        image_data, aspect_ratio = build_image_and_aspect_ratio(row)
         if parsed_args.execute:
-            send_skeet(client, body_text, img_data, alt_text, aspect_ratio)
+            send_skeet(client, body_text, image_data, alt_text, aspect_ratio)
 
 
 def build_bsky_client():
