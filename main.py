@@ -61,12 +61,20 @@ def build_body_text(row):
     review = row["review"].replace("\\n", "\n")
     body_text = f"{year} watch #{num}: {title} ({release_year})\n\n{review}"
     print(body_text)
+    l = len(body_text)
+    if l <= 300:
+        print(f"✅ length OK: {l}")
+    else:
+        print(f"⛔ too long: {l}")
     return body_text
 
 
 def build_alt_text(row):
     alt_text = row["alt_text"]
-    print(f"\nALT text: {alt_text}")
+    if alt_text.isspace() or len(alt_text) == 0:
+        print(f"⛔ missing ALT text")
+    else:
+        print(f"✅ ALT text: {alt_text}")
     return alt_text
 
 
@@ -75,7 +83,13 @@ def build_image_and_aspect_ratio(row):
         img_data = f.read()
     img = imread(row["image_path"])
 
-    print(f"Image size: {len(img_data)}")
+    img_size = len(img_data)
+
+    if img_size < 1_000_000:
+        print(f"✅ Image size OK: {img_size}")
+    else:
+        print(f"⛔ Image size must be below 1MB: {img_size}")
+
     print(f"Aspect ratio: {img.shape[1]}x{img.shape[0]}")
 
     return img_data, models.AppBskyEmbedDefs.AspectRatio(
